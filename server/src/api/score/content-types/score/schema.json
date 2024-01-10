@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "scores",
+  "info": {
+    "singularName": "score",
+    "pluralName": "scores",
+    "displayName": "Score",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "studentID": {
+      "type": "string",
+      "required": true
+    },
+    "score": {
+      "type": "integer"
+    },
+    "Status": {
+      "type": "string",
+      "required": true
+    },
+    "VIewed": {
+      "type": "datetime"
+    },
+    "Accepted": {
+      "type": "datetime"
+    },
+    "announce": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::announce.announce",
+      "inversedBy": "scores"
+    }
+  }
+}

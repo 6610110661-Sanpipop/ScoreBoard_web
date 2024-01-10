@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "announces",
+  "info": {
+    "singularName": "announce",
+    "pluralName": "announces",
+    "displayName": " Announce",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "Name": {
+      "type": "string",
+      "required": true
+    },
+    "revealTIme": {
+      "type": "datetime"
+    },
+    "who_creates": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "announces"
+    },
+    "scores": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::score.score",
+      "mappedBy": "announce"
+    }
+  }
+}

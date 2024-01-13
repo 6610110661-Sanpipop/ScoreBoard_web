@@ -426,6 +426,11 @@ export interface ApiScoreScore extends Schema.CollectionType {
       'manyToOne',
       'api::announce.announce'
     >;
+    whoscore: Attribute.Relation<
+      'api::score.score',
+      'manyToOne',
+      'plugin::users-permissions.user'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -793,6 +798,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'manyToMany',
       'api::announce.announce'
+    >;
+    myscores: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::score.score'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;

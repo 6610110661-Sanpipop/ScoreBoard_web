@@ -1,8 +1,11 @@
 import './App.css';
-import { useState,useEffect } from 'react';
+import { useState,useEffect,useContext } from 'react';
 import { Spin, Divider, Typography } from "antd";
 import axios from 'axios';
 import Tablescores from './components/Tablescores';
+import Datacontext from './data/Datacontext';
+
+
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_SCORES= "/api/scores";
@@ -10,10 +13,11 @@ const URL_SCORES= "/api/scores";
 function Stdmain() {
     const [isLoading, setIsLoading] = useState(false);
     const [datascore, setdatascore] = useState([])
+    const std_id = useContext(Datacontext)
     const fetchItems = async () =>{
          try{
             setIsLoading(true)
-            const response = await axios.get(`${URL_SCORES}?populate=*&filters[studentID][$eq]=6610110661`)
+            const response = await axios.get(`${URL_SCORES}?populate=*&filters[studentID][$eq]=${std_id}`)
             console.log('respon after get',response.data.data)
             const response_scores = response.data.data.map((d)=>{
                 return {

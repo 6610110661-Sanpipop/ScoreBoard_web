@@ -12,7 +12,17 @@ function LoginScreen(props){
           setIsLoading(true);
           setErrMsg(null);
           const response = await axios.post(URL_AUTH, {...formData});   
-          console.log('afterlogin',response)      
+          console.log('afterlogin',response )  
+
+          const std_id = response.data.user.email
+          const numericValue = std_id.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
+          if (numericValue) {
+            const numericString = numericValue[0]; // ได้ค่าเป็น "6610110661"
+            console.log('this is student user',numericString);
+          } else {
+            console.log("No numeric value found in the email. so this is teacher");
+          }
+          
           const token = response.data.jwt
           axios.defaults.headers.common = { Authorization: `bearer ${token}` };//ฟีเจอของaxios เซตเฮดเดอให้มันได้เลย แล้วต่อไปในแอพของเราทั้งหมดแอพจะให้เฮดเดอนี้เสมอ (ฟังชันบันทึกโทเคน)
           props.onLoginSuccess(); // ใช้งานฟังชันพรอพ onlogin success

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Stdmain from './Stdmain'; // component
 import LoginScreen from './LoginScreen';
 import Eachstd from './Eachstd';
+import Datacontext from './data/Datacontext';
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:1337"
 
@@ -18,15 +19,17 @@ function App() {
   
 
   return (
-    <div className='App'>
-      <header className="App-header">
-        {!isAuthenticated &&
-          <LoginScreen onLoginSuccess={handleLoginSuccess} />}
-        {isAuthenticated && 
-          <Stdmain />}
+    <Datacontext.Provider value="6610110661">
+      <div className='App'>
+        <header className="App-header">
+          {!isAuthenticated &&
+            <LoginScreen onLoginSuccess={handleLoginSuccess} />}
+          {isAuthenticated && 
+            <Eachstd />}
           
-      </header>
-    </div>
+        </header>
+      </div>
+    </Datacontext.Provider>
   );
 }
 

@@ -1,11 +1,11 @@
-.App{
+
+nav{
+  background-color: #333;
+  padding: 1rem;
   text-align: center;
 }
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+nav a{
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1rem;
 }

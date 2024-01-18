@@ -1,35 +1,54 @@
 import './App.css';
 import axios from "axios";
-import { useState } from "react";
-import Stdmain from './Stdmain'; // component
+import { useEffect, useState } from "react";
+import Teacherpage from './Teacherpage'; // component
 import LoginScreen from './LoginScreen';
 import Eachstd from './Eachstd';
-import Datacontext from './data/Datacontext';
+import Hometc from './Hometc';
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:1337"
 
 function App() {
+  
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+
+  useEffect(()=>{
+    const storedAuth = localStorage.getItem('isAuthenticated');
+    if (storedAuth){
+      setIsAuthenticated(storedAuth === 'true');
+    }
+  },[])
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true)
+    localStorage.setItem('isAuthenticated','true') //3.setisAuthenticated
     console.log('loginsuccess');
   };
 
+  const [role,setRole] = useState('') 
+  const handleSetRole = (who) =>{
+    setRole(who)
+  }
   
 
   return (
-    <Datacontext.Provider value="6610110661">
+    
       <div className='App'>
         <header className="App-header">
-          {!isAuthenticated &&
-            <LoginScreen onLoginSuccess={handleLoginSuccess} />}
+          {/* {!isAuthenticated &&
+            <LoginScreen onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole} />}
           {isAuthenticated && 
-            <Eachstd />}
-          
+            <Eachstd />}    */}
+
+          {isAuthenticated && role ? (role === 'Student' ? <Eachstd /> : <Hometc />) : 
+          (<LoginScreen onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole}/>)}
         </header>
       </div>
-    </Datacontext.Provider>
+      
+      // <div>
+      // {/* ถ้ามี token, แสดงหน้า Home, ไม่มีแสดงหน้า Login */}
+      // {jwt ? <Eachstd whoLogin={std_id} jwt={jwt} /> : <Login_Screen onLogin={handleLogin} onAddID={onAddstdID} />}
+      // </div>
   );
 }
 

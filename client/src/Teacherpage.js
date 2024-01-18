@@ -1,25 +1,22 @@
 import "./App.css";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Spin, Divider, Typography } from "antd";
 import axios from "axios";
 import Tablescores from "./components/Tablescores";
-import Navstd from "./components/Navstd";
+import Navtc from "./components/Navtc";
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_SCORES = "/api/scores";
 
-function Eachstd(props) {
-  const std_id = localStorage.getItem('stdID');
+function Teacherpage(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [datascore, setdatascore] = useState([]);
-  // const std_id = props.whoLogin;
+  
   const fetchItems = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get(
-        `${URL_SCORES}?populate=*&filters[studentID][$eq]=${std_id}`
-      );
+      const response = await axios.get(`${URL_SCORES}?populate=*`);
       console.log("respon after get", response.data.data);
       const response_scores = response.data.data.map((d) => {
         return {
@@ -53,12 +50,11 @@ function Eachstd(props) {
 
   return (
     <>
-      <Navstd onLogout={handleLogout} />
-      
+      <Navtc onLogout={handleLogout}/>
       <div className="App">
         <header>
           <Spin spinning={isLoading}>
-            <h1>This is student ID {std_id}</h1>
+            <h1>This is Teacher page</h1>
             <h2>Data Scores from Strapi</h2>
             <Tablescores data={datascore} />
           </Spin>
@@ -68,4 +64,4 @@ function Eachstd(props) {
   );
 }
 
-export default Eachstd;
+export default Teacherpage;

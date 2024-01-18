@@ -71,12 +71,6 @@
       "relation": "manyToMany",
       "target": "api::announce.announce",
       "mappedBy": "who_creates"
-    },
-    "myscores": {
-      "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::score.score",
-      "mappedBy": "whoscore"
     }
   }
 }

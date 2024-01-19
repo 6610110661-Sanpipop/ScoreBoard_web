@@ -4,7 +4,8 @@ import { Spin, Divider, Typography } from "antd";
 import axios from "axios";
 import Tablescores from "./components/Tablescores";
 import Navstd from "./components/Navstd";
-
+import './decoration/Navtc.css'
+//กรองข้อมูลในตารางจากตัวเลขในเมล
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_SCORES = "/api/scores";

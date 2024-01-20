@@ -17,7 +17,8 @@
       "required": true
     },
     "score": {
-      "type": "integer"
+      "type": "integer",
+      "required": true
     },
     "Status": {
       "type": "string",

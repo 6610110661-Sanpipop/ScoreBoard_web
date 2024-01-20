@@ -376,9 +376,9 @@ export interface ApiAnnounceAnnounce extends Schema.CollectionType {
   attributes: {
     Name: Attribute.String & Attribute.Required;
     revealTIme: Attribute.DateTime;
-    who_creates: Attribute.Relation<
+    who_create: Attribute.Relation<
       'api::announce.announce',
-      'manyToMany',
+      'manyToOne',
       'plugin::users-permissions.user'
     >;
     scores: Attribute.Relation<
@@ -417,7 +417,7 @@ export interface ApiScoreScore extends Schema.CollectionType {
   };
   attributes: {
     studentID: Attribute.String & Attribute.Required;
-    score: Attribute.Integer;
+    score: Attribute.Integer & Attribute.Required;
     Status: Attribute.String & Attribute.Required;
     VIewed: Attribute.DateTime;
     Accepted: Attribute.DateTime;
@@ -791,7 +791,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
     >;
     announces: Attribute.Relation<
       'plugin::users-permissions.user',
-      'manyToMany',
+      'oneToMany',
       'api::announce.announce'
     >;
     createdAt: Attribute.DateTime;

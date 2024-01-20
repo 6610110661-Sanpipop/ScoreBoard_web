@@ -8,6 +8,7 @@ import Teacherpage from "./Teacherpage";
 import Eachstd from "./Eachstd";
 import Hometc from "./Hometc";
 import Announcedetail from "./components/Announcedetail";
+import Readexcel from "./components/Readexcel";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path:"admin",
     element:<Hometc/>
+  },
+  {
+    path:"test",
+    element:<Readexcel/>
   },
   {
     path: `announce/:id`, // ใช้ :id เป็น dynamic segment

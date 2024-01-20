@@ -15,7 +15,7 @@ function LoginScreen(props){
           setErrMsg(null);
           const response = await axios.post(URL_AUTH, {...formData});   
           console.log('afterlogin',response )  
-          
+          localStorage.setItem('IDuser',response.data.user.id)//setidของuserที่ลอกอินเข้ามา
           const email = response.data.user.email
           const numericValue = email.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
           if (numericValue) {

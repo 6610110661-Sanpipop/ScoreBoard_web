@@ -19,9 +19,9 @@
     "revealTIme": {
       "type": "datetime"
     },
-    "who_creates": {
+    "who_create": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "announces"
     },

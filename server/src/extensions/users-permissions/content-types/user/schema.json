@@ -68,9 +68,9 @@
     },
     "announces": {
       "type": "relation",
-      "relation": "manyToMany",
+      "relation": "oneToMany",
       "target": "api::announce.announce",
-      "mappedBy": "who_creates"
+      "mappedBy": "who_create"
     }
   }
 }

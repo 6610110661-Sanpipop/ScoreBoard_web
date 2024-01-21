@@ -13,10 +13,13 @@ const URL_ANNOUNCE = "/api/announces";
 function Hometc() {
   const [forceRefresh, setForceRefresh] = useState(false);
   const [dataForm,setDataForm] = useState('')
+  const [searchtxt,setSearchtxt] = useState('')
+
 
   const handleLogout = () => {
     // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
     localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('role');
     localStorage.removeItem('IDuser');
     localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
     delete axios.defaults.headers.common['Authorization'];
@@ -30,7 +33,7 @@ function Hometc() {
   }
 
   const handlenewAn=(newAn)=>{
-    console.log('Home get',newAn)
+    console.log('Home get newAn',newAn)
     axios.post(URL_ANNOUNCE,{data:{
       Name : newAn,
       who_create: localStorage.getItem('IDuser')
@@ -39,19 +42,24 @@ function Hometc() {
   }
 
   const handlechangename = (newName)=>{
-    console.log('Home get',newName)
+    console.log('Home get new name',newName)
     axios.put(`${URL_ANNOUNCE}/${newName.id}`,{data:{
       Name : newName.newName 
     }});
     setForceRefresh(prev => !prev);
   }
 
+  const handlesearching = (text) => {
+    console.log('home get search ',text)
+    setSearchtxt(text)
+  }
+
   return (
     <div> 
-      <Navtc onLogout={handleLogout}/>
+      <Navtc onSearching={handlesearching} onLogout={handleLogout}/>
       <h1>Home for teacher</h1>
       <FormnewAn onAddnewAn={handlenewAn}/>
-      <Announcepage key={forceRefresh} onNewname={handlechangename} onDelete={handleDelete} /> 
+      <Announcepage txtsearch={searchtxt} key={forceRefresh} onNewname={handlechangename} onDelete={handleDelete} /> 
     </div>
   );
 }

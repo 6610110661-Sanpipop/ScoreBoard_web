@@ -15,16 +15,18 @@ function LoginScreen(props){
           setErrMsg(null);
           const response = await axios.post(URL_AUTH, {...formData});   
           console.log('afterlogin',response )  
-          localStorage.setItem('IDuser',response.data.user.id)//setidของuserที่ลอกอินเข้ามา
+          localStorage.setItem('IDuser',response.data.user.id)//4.setidของuserที่ลอกอินเข้ามา
           const email = response.data.user.email
           const numericValue = email.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
           if (numericValue) {
             const std_id = numericValue[0]; // ได้ค่าเป็น "6610110661"
             console.log('this is student user',std_id); 
             localStorage.setItem('stdID', std_id);//1.setstdID
-            props.onSetRole('Student')
+            localStorage.setItem('role','Student')
+            props.onSetRole('Student') //5. setrole
           } else {
             console.log("No numeric value found in the email. so this is teacher");
+            localStorage.setItem('role','Admin')
             props.onSetRole('Admin')
           }
           

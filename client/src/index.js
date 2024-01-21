@@ -9,6 +9,8 @@ import Eachstd from "./Eachstd";
 import Hometc from "./Hometc";
 import Announcedetail from "./components/Announcedetail";
 import Readexcel from "./components/Readexcel";
+import Homestd from "./Homestd";
+import AndetailforStd from "./components/AndetailforStd";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,11 @@ const router = createBrowserRouter([
     element: <Eachstd/>
   },
   {
+    path: "homestd",
+    element: <Homestd/>
+  },
+
+  {
     path:"admin",
     element:<Hometc/>
   },
@@ -30,7 +37,11 @@ const router = createBrowserRouter([
   {
     path: `announce/:id`, // ใช้ :id เป็น dynamic segment
     element: <Announcedetail />
-  }
+  },
+  {
+    path: `announcestd/:id`, // ใช้ :id เป็น dynamic segment
+    element: <AndetailforStd />
+  },
 
 ])
 

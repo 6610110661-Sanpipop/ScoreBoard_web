@@ -62,7 +62,7 @@ function Eachstd(props) {
           <Spin spinning={isLoading}>
             <h1>This is student ID {std_id}</h1>
             <h2>Data Scores from Strapi</h2>
-            <Tablescores data={datascore} />
+            {/* <Tablescores data={datascore} /> */}
           </Spin>
         </header>
       </div>

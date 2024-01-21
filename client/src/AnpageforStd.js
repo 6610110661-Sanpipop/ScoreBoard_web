@@ -3,31 +3,36 @@ import "./Announcepage.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Spin, Button, Modal, Form, Input } from "antd";
-import Announcedetail from "./components/Announcedetail";
 import ModaleditName from "./components/ModaleditName";
 import { Link } from "react-router-dom";
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_ANNOUNCE = "/api/announces";
-const URL_USER = "/api/users"
+const URL_SCORE = "/api/scores"
 
-function Announcepage(props) {
+function AnpageforStd(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [announce, setannounce] = useState([]);
-  const [searchtxt,setSearchtxt] = useState(props.txtsearch)
+  const encodedAnnounceArray = encodeURIComponent(JSON.stringify(announce));
+  
   
   const fetchItems = async () => {
     try {
       setIsLoading(true);
-      const userID = localStorage.getItem('IDuser')
-      const respon = await axios.get(`${URL_USER}/${userID}?populate=announces`)
-      console.log('respon', respon.data.announces )
-      const respon_map = respon.data.announces.map((e)=>{
+      const stdID = localStorage.getItem('stdID')
+      console.log('stdID',stdID)
+      const responn = await axios.get(`${URL_SCORE}?filters[studentID][$eq]=${stdID}&populate=announce`)
+      console.log('respon std announce', responn.data.data )
+      const respon_map = responn.data.data.map((e)=>{
         return {
           id:e.id,
           key:e.id,
-          name:e.Name
+          studentID:e.attributes.studentID,
+          score:e.attributes.score,
+          Status:e.attributes.Status,
+          id_announce:e.attributes.announce.data.id,
+          name:e.attributes.announce.data.attributes.Name
         }
       })
       console.log('responmap',respon_map)
@@ -77,12 +82,6 @@ function Announcepage(props) {
     }
   }, [props.txtsearch]);
 
-
-  
-  const handlenewName = (newName) =>{
-    props.onNewname(newName)
-  }
-
   return (
     <div className="container">
       <Spin spinning={isLoading}>
@@ -93,15 +92,12 @@ function Announcepage(props) {
           <div key={announce.id} className="container-div">
             <div className="edit-box">
               <h3>{announce.name}</h3>
-              {/* <button className="buttonedit">edit</button> */}
-              <ModaleditName idclicked={announce.id} onnewName={handlenewName} />
             </div>
             <p>นี่คือการประกาศคะแนนแห่งความชิบหาย</p>
             <div className="edit-box">
-              <Link to={`/announce/${announce.id}`}>More detail</Link>
-              <button onClick={() => props.onDelete(announce.id)}>Delete</button>
+              <Link to={`/announcestd/${announce.id_announce}`}>More detail</Link>
             </div>
-            {/* แสดงข้อมูลอื่น ๆ ของกิจกรรมตามต้องการ */}
+            
           </div>
         ))}
 
@@ -110,4 +106,4 @@ function Announcepage(props) {
   );
 }
 
-export default Announcepage;
+export default AnpageforStd;

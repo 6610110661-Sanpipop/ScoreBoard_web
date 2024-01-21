@@ -5,12 +5,13 @@ import Teacherpage from './Teacherpage'; // component
 import LoginScreen from './LoginScreen';
 import Eachstd from './Eachstd';
 import Hometc from './Hometc';
+import Homestd from './Homestd';
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:1337"
 
 function App() {
-  
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [role,setRole] = useState('')
 
   useEffect(()=>{
     const storedAuth = localStorage.getItem('isAuthenticated');
@@ -25,7 +26,7 @@ function App() {
     console.log('loginsuccess');
   };
 
-  const [role,setRole] = useState('') 
+   
   const handleSetRole = (who) =>{
     setRole(who)
   }
@@ -40,7 +41,7 @@ function App() {
           {isAuthenticated && 
             <Eachstd />}    */}
 
-          {isAuthenticated && role ? (role === 'Student' ? <Eachstd /> : <Hometc />) : 
+          {isAuthenticated && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
           (<LoginScreen onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole}/>)}
         </header>
       </div>

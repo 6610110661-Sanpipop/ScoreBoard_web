@@ -9,6 +9,7 @@ import FormnewAn from "./components/FormnewAn";
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_ANNOUNCE = "/api/announces";
+const URL_SCORES = "/api/scores"
 
 function Hometc() {
   const [forceRefresh, setForceRefresh] = useState(false);
@@ -27,10 +28,27 @@ function Hometc() {
     window.location.href = '/';
   };
 
-  const handleDelete = (id) =>{
-    axios.delete(`${URL_ANNOUNCE}/${id}`);
+  const handleDelete = async (id) =>{
+    try {
+     // 1. ดึงข้อมูลประกาศที่ต้องการลบ
+    const announceResponse = await axios.get(`${URL_ANNOUNCE}/${id}?populate=scores`);
+    // 2. ดึงรายการคะแนนที่เกี่ยวข้องกับประกาศนี้
+    const scores = announceResponse.data.data.attributes.scores.data;
+    console.log('score must delete',scores)
+    // 3. ลบทุกรายการคะแนนที่เกี่ยวข้อง
+    const deleteScorePromises = scores.map(async (score) => {
+      await axios.delete(`${URL_SCORES}/${score.id}`);
+    });
+     // 4. รอให้ทุกคำร้องลบคะแนนเสร็จสิ้น
+    await Promise.all(deleteScorePromises);
+    // 5. ลบประกาศ
+    await axios.delete(`${URL_ANNOUNCE}/${id}`);
+    // 6. อัปเดต state เพื่อ force refresh
     setForceRefresh(prev => !prev);
+  } catch (error) {
+    console.error("Error deleting announce and associated scores:", error);
   }
+};
 
   const handlenewAn=(newAn)=>{
     console.log('Home get newAn',newAn)
@@ -57,7 +75,7 @@ function Hometc() {
   return (
     <div> 
       <Navtc onSearching={handlesearching} onLogout={handleLogout}/>
-      <h1>Home for teacher</h1>
+      <h1>Home for Admin "{localStorage.getItem('username')}"</h1>
       <FormnewAn onAddnewAn={handlenewAn}/>
       <Announcepage txtsearch={searchtxt} key={forceRefresh} onNewname={handlechangename} onDelete={handleDelete} /> 
     </div>

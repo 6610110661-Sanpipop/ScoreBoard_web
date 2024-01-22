@@ -96,7 +96,7 @@ function Announcepage(props) {
               {/* <button className="buttonedit">edit</button> */}
               <ModaleditName idclicked={announce.id} onnewName={handlenewName} />
             </div>
-            <p>นี่คือการประกาศคะแนนแห่งความชิบหาย</p>
+            <p>นี่คือการประกาศคะแนนแห่งความสนุก</p>
             <div className="edit-box">
               <Link to={`/announce/${announce.id}`}>More detail</Link>
               <button onClick={() => props.onDelete(announce.id)}>Delete</button>

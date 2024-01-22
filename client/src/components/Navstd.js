@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { SearchOutlined } from '@ant-design/icons';
+import { Button, Flex, Tooltip } from 'antd';
 
 
 const Navstd = (props) => {
@@ -27,7 +29,12 @@ const Navstd = (props) => {
         <form>
           <input type="text" onChange={searching} placeholder="ค้นหาประกาศ" className="search" value={searchAn}/>
         </form>
-        <button onClick={saveItem} className="btn-search">search</button>
+        
+        <Flex gap="small" vertical>
+          <Flex wrap="wrap" gap="small">       
+            <Button onClick={saveItem} className="btn-searcher" icon={<SearchOutlined />}>Search</Button>
+          </Flex>
+        </Flex>
       </div>
       <div className="group"><button onClick={props.onLogout} className="btn-logout">Logout</button></div>
     </nav>

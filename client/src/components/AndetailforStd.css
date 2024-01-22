@@ -1,0 +1,22 @@
+.container-btn{
+    justify-content: right;
+}
+
+.btn-accept{    
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 0px solid rgb(51, 122, 243);
+    background-color: rgb(51, 122, 243);
+    color: white;
+}
+.btn-accepted{
+    font-size: 16px;
+    border-radius: 4px;
+    border: 0px solid rgb(98, 156, 255);
+    background-color: rgb(98, 156, 255);
+    color: white;
+}
+.btn-accept:hover {
+    background-color: rgba(0, 94, 255, 0.563)
+  }

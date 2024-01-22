@@ -3,8 +3,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import Navtc from "./Navtc";
 import Readexcel from "./Readexcel";
-import Tablescores from "./Tablescores";
+import TablescoresTC from "./TablescoresTC";
 import { Spin } from "antd";
+import BtnUploadsc from "./BtnUploadsc";
+import {v4 as uuidv4} from 'uuid';
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
@@ -17,6 +19,7 @@ const AnnounceDetail = () => {
     const [announceDetail, setAnnounceDetail] = useState({});
     const [datascore, setdatascore] = useState([]);
     const [dataForpost,setDataForpost] = useState([])
+    const [forceRefresh, setForceRefresh] = useState(false);
     
     const fetchAnnounceDetail = async () => {
       try {
@@ -52,6 +55,9 @@ const AnnounceDetail = () => {
     useEffect(() => {
       fetchAnnounceDetail();
     }, []);
+    useEffect(() => {
+      fetchAnnounceDetail();
+    }, [forceRefresh]);
   
     const handleLogout = () => {
       // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
@@ -68,6 +74,7 @@ const AnnounceDetail = () => {
       console.log('data form excel',item)
       const itemTOpost = item.map((e)=>{
         return {
+          key: uuidv4(),
           studentID:e.studentID.toString(),
           score:e.score,
           Status:e.Status,
@@ -79,7 +86,6 @@ const AnnounceDetail = () => {
 
     const posting = async () => {//postเมื่อกดปุ่ม
       console.log('prepare post', dataForpost);
-      
       try {
         const postRequests = dataForpost.map(async (item) => {
           console.log('wtf', item);
@@ -98,6 +104,7 @@ const AnnounceDetail = () => {
         // Handle error, e.g., show error message to the user
       } finally {
         setDataForpost([]);
+        setForceRefresh(prev => !prev)
       }
     };
     
@@ -110,9 +117,9 @@ const AnnounceDetail = () => {
           <h2>{announceDetail.Name}</h2>
           <h3>อัพโหลดไฟล์excelของคุณ</h3>
           <Readexcel onAddscore={handleAddscore}/>
-          <button onClick={posting}>เพิ่มคะแนน</button>
-          <h3>Announce Detail</h3>
-          <div><Tablescores data={datascore} /></div>
+          <div className="btn-upload"><BtnUploadsc data={dataForpost} funcPost={posting}/></div>         
+          <h3>รายละเอียดคะแนน</h3>
+          <div ><TablescoresTC data={datascore} /></div>
         </Spin>
       </div>
     );

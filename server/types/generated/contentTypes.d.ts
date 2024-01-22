@@ -419,7 +419,7 @@ export interface ApiScoreScore extends Schema.CollectionType {
     studentID: Attribute.String & Attribute.Required;
     score: Attribute.Integer & Attribute.Required;
     Status: Attribute.String & Attribute.Required;
-    VIewed: Attribute.DateTime;
+    Viewed: Attribute.DateTime;
     Accepted: Attribute.DateTime;
     announce: Attribute.Relation<
       'api::score.score',

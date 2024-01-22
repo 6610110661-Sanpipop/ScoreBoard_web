@@ -48,6 +48,9 @@ item:hover{
   border-radius: 4px;
   border: 2px solid rgb(40, 100, 205);
 }
+.btn-searcher{
+  margin: 10px;
+}
 /* nav{
     background-color: #333;
     padding: 1rem;

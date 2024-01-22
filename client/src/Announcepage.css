@@ -30,3 +30,10 @@ body{
     color: rgb(255, 255, 255);
     background-color: rgb(12, 73, 170);
 }
+.btn-upload{
+    margin-top: 15px;
+}
+
+.container-filter Button{
+    margin: 0px 3px;
+}

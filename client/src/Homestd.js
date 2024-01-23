@@ -13,6 +13,7 @@ const URL_ANNOUNCE = "/api/announces";
 const URL_SCORE = "/api/scores"
 
 function Homestd(props) {
+    const home = 'home'
     const [forceRefresh, setForceRefresh] = useState(false);
     const [searchtxt,setSearchtxt] = useState('')
     const stdID = localStorage.getItem('stdID')
@@ -21,7 +22,9 @@ function Homestd(props) {
         // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
         localStorage.removeItem('isAuthenticated');
         localStorage.removeItem('role');
+        localStorage.removeItem('jwt');
         localStorage.removeItem('IDuser');
+        localStorage.removeItem('username');
         localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
         delete axios.defaults.headers.common['Authorization'];
         // ทำการ redirect ไปยังหน้าที่ต้องการ
@@ -33,7 +36,7 @@ function Homestd(props) {
     }  
     return (
         <div>
-            <Navstd onSearching={handlesearching} onLogout={handleLogout}/>
+            <Navstd onHome={home} onSearching={handlesearching} onLogout={handleLogout}/>
             <h1>Student : {stdID} </h1>
             <AnpageforStd txtsearch={searchtxt} key={forceRefresh}/>
         </div>

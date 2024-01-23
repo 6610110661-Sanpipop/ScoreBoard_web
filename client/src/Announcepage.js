@@ -65,6 +65,8 @@ function Announcepage(props) {
 
   useEffect(() => {
     fetchItems();
+    const token = localStorage.getItem('jwt')
+    axios.defaults.headers.common = { Authorization: `bearer ${token}` };
   }, []);
 
   

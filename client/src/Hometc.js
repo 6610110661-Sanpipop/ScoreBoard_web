@@ -21,7 +21,9 @@ function Hometc() {
     // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
     localStorage.removeItem('isAuthenticated');
     localStorage.removeItem('role');
+    localStorage.removeItem('jwt');
     localStorage.removeItem('IDuser');
+    localStorage.removeItem('username');
     localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
     delete axios.defaults.headers.common['Authorization'];
     // ทำการ redirect ไปยังหน้าที่ต้องการ

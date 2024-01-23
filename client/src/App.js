@@ -6,6 +6,7 @@ import LoginScreen from './LoginScreen';
 import Eachstd from './Eachstd';
 import Hometc from './Hometc';
 import Homestd from './Homestd';
+import { useLoaderData } from 'react-router-dom';
 
 axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:1337"
 
@@ -15,9 +16,13 @@ function App() {
 
   useEffect(()=>{
     const storedAuth = localStorage.getItem('isAuthenticated');
-    if (storedAuth){
-      setIsAuthenticated(storedAuth === 'true');
+    if (storedAuth==='true'){
+      setIsAuthenticated(true);//เซ็ตตัวisauthen ตอนโหลด
     }
+    const Role = localStorage.getItem('role')
+    setRole(Role)//เซ็ตตัวrole ตอนโหลด
+    console.log('role',role)
+    
   },[])
 
   const handleLoginSuccess = () => {
@@ -41,7 +46,7 @@ function App() {
           {isAuthenticated && 
             <Eachstd />}    */}
 
-          {isAuthenticated && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
+          {localStorage.getItem('isAuthenticated') == 'true' && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
           (<LoginScreen onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole}/>)}
         </header>
       </div>

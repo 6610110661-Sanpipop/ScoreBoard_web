@@ -35,6 +35,7 @@ function LoginScreen(props){
           
           const token = response.data.jwt
           axios.defaults.headers.common = { Authorization: `bearer ${token}` };//ฟีเจอของaxios เซตเฮดเดอให้มันได้เลย แล้วต่อไปในแอพของเราทั้งหมดแอพจะให้เฮดเดอนี้เสมอ (ฟังชันบันทึกโทเคน) 2.setaxiosheader
+          localStorage.setItem('jwt',token)
           props.onLoginSuccess(); // ใช้งานฟังชันพรอพ onlogin success
         } catch (err) {
           console.log(err);

@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Flex, Tooltip } from 'antd';
 
-
 const Navstd = (props) => {
   const [searchAn,setserchAn] = useState('')
   const role = localStorage.getItem('role')
-
+  
   const searching = (event) =>{
     setserchAn(event.target.value)
   }

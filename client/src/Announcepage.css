@@ -8,6 +8,7 @@ body{
 }
 .edit-box{
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 .buttonedit{
@@ -18,14 +19,15 @@ body{
     margin-top: 15px;
 }
 .container-div{
+    border-radius: 6px;
     text-align: left;
     background-color: #fff;
     display: inline-block;
-    width: 200px;
-    margin: 10px 20px;
+    width: 220px;
+    margin: 15px 20px;
     padding: 20px;
-    box-shadow: 2px 2px 20px rgba(0, 0, 0, 0.12);
-}
+    /* box-shadow: 5px 5px 12px rgba(97, 182, 239, 0.932),-3px -3px 12px rgba(248, 112, 239, 0.921); */
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;}
 .btn-edit{
     color: rgb(255, 255, 255);
     background-color: rgb(12, 73, 170);
@@ -36,4 +38,8 @@ body{
 
 .container-filter Button{
     margin: 0px 3px;
+}
+.searcher{
+    justify-content: center;
+    background-color: rgb(132, 192, 255);
 }

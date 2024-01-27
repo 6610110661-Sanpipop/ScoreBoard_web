@@ -5,6 +5,8 @@ import Announcepage from "./Announcepage";
 import Navtc from "./components/Navtc";
 import './decoration/Navtc.css'
 import FormnewAn from "./components/FormnewAn";
+import { SearchOutlined } from '@ant-design/icons';
+import { Button, Flex, Tooltip } from 'antd';
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
@@ -68,15 +70,36 @@ function Hometc() {
     }});
     setForceRefresh(prev => !prev);
   }
-
-  const handlesearching = (text) => {
-    console.log('home get search ',text)
-    setSearchtxt(text)
+  const [searchAn,setserchAn] = useState('')
+  const searching = (event) =>{ //ติดตามว่าพิมอะไรอยู่
+    setserchAn(event.target.value)
   }
+  const saveItem = (event) =>{
+    event.preventDefault() //ไม่ให้จอรีเฟรช
+    const itemData = {
+       searchAn : searchAn,
+    }
+    console.log('item search',itemData)
+    setSearchtxt(itemData.searchAn)
+    setserchAn('')//ดึงข้อมูลมาแล้วก็เคลียค่าstateทิ้ง
+}
+
+  
 
   return (
     <div> 
-      <Navtc onSearching={handlesearching} onLogout={handleLogout}/>
+      <Navtc onLogout={handleLogout}/>
+      <div className="group searcher">
+        <form>
+          <input type="text" onChange={searching} placeholder="ค้นหาประกาศ" className="search" value={searchAn}/>
+        </form>
+        
+        <Flex gap="small" vertical>
+          <Flex wrap="wrap" gap="small">       
+            <Button onClick={saveItem} className="btn-searcher" icon={<SearchOutlined />}>Search</Button>
+          </Flex>
+        </Flex>
+      </div>
       <h1>Home for Admin "{localStorage.getItem('username')}"</h1>
       <FormnewAn onAddnewAn={handlenewAn}/>
       <Announcepage txtsearch={searchtxt} key={forceRefresh} onNewname={handlechangename} onDelete={handleDelete} /> 

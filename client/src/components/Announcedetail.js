@@ -19,6 +19,7 @@ const AnnounceDetail = () => {
     const [announceDetail, setAnnounceDetail] = useState({});
     const [datascore, setdatascore] = useState([]);
     const [dataForpost,setDataForpost] = useState([])
+    const [dataForpreview,setDataForpreview] = useState([])
     const [forceRefresh, setForceRefresh] = useState(false);
     
     const fetchAnnounceDetail = async () => {
@@ -80,8 +81,18 @@ const AnnounceDetail = () => {
           Status:e.Status,
           announce: announceDetail.id
         }})
+      const itemTOpreview = item.map((e)=>{
+        return {
+          key: uuidv4(),
+          studentID:e.studentID.toString(),
+          score:e.score,
+          Status:e.Status,
+          announce: announceDetail.Name
+        }})
       console.log('itemtopost',itemTOpost)
+      console.log('itemtopreview',itemTOpreview)
       setDataForpost([...itemTOpost])
+      setDataForpreview([...itemTOpreview])
     }
 
     const posting = async () => {//postเมื่อกดปุ่ม
@@ -117,7 +128,7 @@ const AnnounceDetail = () => {
           <h2>{announceDetail.Name}</h2>
           <h3>อัพโหลดไฟล์excelของคุณ</h3>
           <Readexcel onAddscore={handleAddscore}/>
-          <div className="btn-upload"><BtnUploadsc data={dataForpost} funcPost={posting}/></div>         
+          <div className="btn-upload"><BtnUploadsc data={dataForpreview} funcPost={posting}/></div>         
           <h3>รายละเอียดคะแนน</h3>
           <div ><TablescoresTC data={datascore} /></div>
         </Spin>

@@ -6,41 +6,79 @@ import Navstd from "./components/Navstd";
 import AnpageforStd from "./AnpageforStd";
 import { Spin, Button, Modal, Form, Input } from "antd";
 import { Link } from "react-router-dom";
+import { SearchOutlined } from '@ant-design/icons';
+import { Flex } from 'antd';
 
 axios.defaults.baseURL =
   process.env.REACT_APP_BASE_URL || "http://localhost:1337";
 const URL_ANNOUNCE = "/api/announces";
-const URL_SCORE = "/api/scores"
+const URL_SCORE = "/api/scores";
 
 function Homestd(props) {
-    const home = 'home'
-    const [forceRefresh, setForceRefresh] = useState(false);
-    const [searchtxt,setSearchtxt] = useState('')
-    const stdID = localStorage.getItem('stdID')
+  const [forceRefresh, setForceRefresh] = useState(false);
+  const [searchtxt, setSearchtxt] = useState("");
+  const stdID = localStorage.getItem("stdID");
 
-    const handleLogout = () => {
-        // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
-        localStorage.removeItem('isAuthenticated');
-        localStorage.removeItem('role');
-        localStorage.removeItem('jwt');
-        localStorage.removeItem('IDuser');
-        localStorage.removeItem('username');
-        localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
-        delete axios.defaults.headers.common['Authorization'];
-        // ทำการ redirect ไปยังหน้าที่ต้องการ
-        window.location.href = '/';
-      };
-    const handlesearching = (text) => {
-        console.log('homestd get search ',text)
-        setSearchtxt(text)
-    }  
-    return (
-        <div>
-            <Navstd onHome={home} onSearching={handlesearching} onLogout={handleLogout}/>
-            <h1>Student : {stdID} </h1>
-            <AnpageforStd txtsearch={searchtxt} key={forceRefresh}/>
-        </div>
-    )
+  const handleLogout = () => {
+    // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("role");
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("IDuser");
+    localStorage.removeItem("username");
+    localStorage.removeItem("stdID"); // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
+    delete axios.defaults.headers.common["Authorization"];
+    // ทำการ redirect ไปยังหน้าที่ต้องการ
+    window.location.href = "/";
+  };
+  const [searchAn,setserchAn] = useState('')
+  const searching = (event) =>{
+    setserchAn(event.target.value)
+  }
+
+  const saveItem = (event) =>{
+    event.preventDefault() //ไม่ให้จอรีเฟรช
+    const itemData = {
+       searchAn : searchAn,
+    }
+    console.log('item search',itemData)
+    setSearchtxt(itemData.searchAn)
+    setserchAn('')//ดึงข้อมูลมาแล้วก็เคลียค่าstateทิ้ง
+    }
+
+  
+
+
+  return (
+    <div>
+      <Navstd onLogout={handleLogout} />
+      <div className="group searcher">
+        <form>
+          <input
+            type="text"
+            onChange={searching}
+            placeholder="ค้นหาประกาศ"
+            className="search"
+            value={searchAn}
+          />
+        </form>
+
+        <Flex gap="small" vertical>
+          <Flex wrap="wrap" gap="small">
+            <Button
+              onClick={saveItem}
+              className="btn-searcher"
+              icon={<SearchOutlined />}
+            >
+              Search
+            </Button>
+          </Flex>
+        </Flex>
+      </div>
+      <h1>Student : {stdID} </h1>
+      <AnpageforStd txtsearch={searchtxt} key={forceRefresh} />
+    </div>
+  );
 }
 
-export default Homestd
+export default Homestd;

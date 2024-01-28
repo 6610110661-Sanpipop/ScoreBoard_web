@@ -24,7 +24,6 @@ const Navstd = (props) => {
   return (
     <nav className="menu-bar">
       <div className="group"><Link to="/homestd" className="item title">{role}</Link></div>
-      
       <div className="group"><button onClick={props.onLogout} className="btn-logout">Logout</button></div>
     </nav>
   );

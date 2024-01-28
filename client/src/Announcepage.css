@@ -23,7 +23,7 @@ body{
     text-align: left;
     background-color: #fff;
     display: inline-block;
-    width: 220px;
+    width: 300px;
     margin: 15px 20px;
     padding: 20px;
     /* box-shadow: 5px 5px 12px rgba(97, 182, 239, 0.932),-3px -3px 12px rgba(248, 112, 239, 0.921); */
@@ -42,4 +42,15 @@ body{
 .searcher{
     justify-content: center;
     background-color: rgb(132, 192, 255);
+}
+.tableTC{
+    margin: 0 auto;
+    width: 850px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(217, 237, 255);
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+footer{
+    height: 100px;
 }

@@ -63,10 +63,10 @@ function Announcepage(props) {
     }
   };
 
-  useEffect(() => {
-    fetchItems();
+  useEffect(() => {   
     const token = localStorage.getItem('jwt')
     axios.defaults.headers.common = { Authorization: `bearer ${token}` };//รีเฟรชแล้วไม่หาย
+    fetchItems();
   }, []);
 
   
@@ -88,7 +88,7 @@ function Announcepage(props) {
   return (
     <div className="container">
       <Spin spinning={isLoading}>
-        <h2>All Announce Page</h2>
+        <h2>All Your Announce Page</h2>
 
         {/* divแต่ละก้อนที่ลูปมา */}
         {announce.map((announce) => (
@@ -106,7 +106,7 @@ function Announcepage(props) {
             {/* แสดงข้อมูลอื่น ๆ ของกิจกรรมตามต้องการ */}
           </div>
         ))}
-
+        <footer></footer>
       </Spin>
     </div>
   );

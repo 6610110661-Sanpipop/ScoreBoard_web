@@ -76,7 +76,7 @@ function AnpageforStd(props) {
         `${URL_SCORE}?filters[studentID][$eq]=${stdID}&populate=announce`
       );
       console.log("respon std announce", respon.data.data);
-      const respon_map = respon.data.data.filter((e) => e.attributes.Accepted===null) // กรองเฉพาะที่ Accepted เท่านั้น
+      const respon_map = respon.data.data.filter((e) => e.attributes.Accepted===null) // กรองเฉพาะที่ Acceptedเป็นnull เท่านั้น
       .map((e) => ({
         id: e.id,
         key: uuidv4(),
@@ -160,7 +160,7 @@ function AnpageforStd(props) {
           <Button onClick={fil_Non_Accept}>Non-Accept</Button>
           <Button type="primary" onClick={fil_All}>All</Button>
         </div>
-        <h2>คะแนนสอบของคุณ</h2>
+        <h2>ประกาศคะแนนสอบของคุณ</h2>
 
         {/* divแต่ละก้อนที่ลูปมา */}
         {announce.map((announce) => (
@@ -168,7 +168,7 @@ function AnpageforStd(props) {
             <div className="edit-box">
               <h3>{announce.name}</h3>
             </div>
-            <p>นี่คือการประกาศคะแนนแห่งความชิบหาย</p>
+            <p>นี่คือการประกาศคะแนนแห่งความปวดหัว</p>
             <div className="edit-box">
               <Link to={`/announcestd/${announce.id_announce}`}>
                 More detail
@@ -176,6 +176,7 @@ function AnpageforStd(props) {
             </div>
           </div>
         ))}
+        <footer></footer>
       </Spin>
     </div>
   );

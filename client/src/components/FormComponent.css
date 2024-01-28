@@ -15,10 +15,12 @@ input:focus{
 .btn{
     background-color: rgb(7, 207, 21);
     color: white;
-    border-radius: 3px;
+    border-radius: 6px;
+    border: none;
     cursor: pointer;
     font-size: 16px;
     margin-top: 5px;
     padding: 4px;
     width: 100px;
+    box-shadow: 2px 3px 0px 1px #088d23;
 }

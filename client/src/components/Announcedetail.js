@@ -65,9 +65,9 @@ const AnnounceDetail = () => {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('role');
       localStorage.removeItem('IDuser');
-      localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
+      localStorage.removeItem('stdID');  
       delete axios.defaults.headers.common['Authorization'];
-      // ทำการ redirect ไปยังหน้าที่ต้องการ
+      // ทำการ redirect ไปยังหน้าแรก
       window.location.href = '/';
     };
 
@@ -112,7 +112,6 @@ const AnnounceDetail = () => {
         await Promise.all(postRequests);
       } catch (error) {
         console.error('Error posting scores:', error);
-        // Handle error, e.g., show error message to the user
       } finally {
         setDataForpost([]);
         setForceRefresh(prev => !prev)
@@ -130,7 +129,10 @@ const AnnounceDetail = () => {
           <Readexcel onAddscore={handleAddscore}/>
           <div className="btn-upload"><BtnUploadsc data={dataForpreview} funcPost={posting}/></div>         
           <h3>รายละเอียดคะแนน</h3>
-          <div ><TablescoresTC data={datascore} /></div>
+          <div className="tableTC">
+            <TablescoresTC data={datascore} />
+          </div>
+          <footer></footer>
         </Spin>
       </div>
     );

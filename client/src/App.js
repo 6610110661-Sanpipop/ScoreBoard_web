@@ -12,17 +12,15 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:133
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [role,setRole] = useState('')
+  const role = localStorage.getItem('role')    //เซ็ตตัวrole ตอนโหลด
+
 
   useEffect(()=>{
     const storedAuth = localStorage.getItem('isAuthenticated');
     if (storedAuth==='true'){
       setIsAuthenticated(true);//เซ็ตตัวisauthen ตอนโหลด
     }
-    const Role = localStorage.getItem('role')
-    setRole(Role)//เซ็ตตัวrole ตอนโหลด
     console.log('role',role)
-    
   },[])
 
   const handleLoginSuccess = () => {
@@ -30,12 +28,6 @@ function App() {
     localStorage.setItem('isAuthenticated','true') //3.setisAuthenticated
     console.log('loginsuccess');
   };
-
-   
-  const handleSetRole = (who) =>{
-    setRole(who)
-  }
-  
 
   return (
     
@@ -47,7 +39,7 @@ function App() {
             <Eachstd />}    */}
 
           {localStorage.getItem('isAuthenticated') == 'true' && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
-          (<LoginScreen onLoginSuccess={handleLoginSuccess} onSetRole={handleSetRole}/>)}
+          (<LoginScreen onLoginSuccess={handleLoginSuccess} />)}
         </header>
       </div>
       

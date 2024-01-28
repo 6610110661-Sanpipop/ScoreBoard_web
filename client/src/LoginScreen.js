@@ -18,24 +18,28 @@ function LoginScreen(props){
           localStorage.setItem('IDuser',response.data.user.id)//4.setidของuserที่ลอกอินเข้ามา
           const email = response.data.user.email
           const username = response.data.user.username
-          const numericValue = email.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
-          if (numericValue) {
-            const std_id = numericValue[0]; // ได้ค่าเป็น "6610110661"
-            console.log('this is student user',std_id); 
-            localStorage.setItem('stdID', std_id);//1.setstdID
-            localStorage.setItem('role','Student')
-            localStorage.setItem('username',username)
-            props.onSetRole('Student') //5. setrole
-          } else {
-            console.log("No numeric value found in the email. so this is teacher");
-            localStorage.setItem('role','Admin')
-            localStorage.setItem('username',username)
-            props.onSetRole('Admin')
-          }
-          
+
           const token = response.data.jwt
           axios.defaults.headers.common = { Authorization: `bearer ${token}` };//ฟีเจอของaxios เซตเฮดเดอให้มันได้เลย แล้วต่อไปในแอพของเราทั้งหมดแอพจะให้เฮดเดอนี้เสมอ (ฟังชันบันทึกโทเคน) 2.setaxiosheader
           localStorage.setItem('jwt',token)
+
+          const getrole = await axios.get("/api/users/me?populate=role")
+          const role = getrole.data.role.name
+          console.log('get role',"'",role,"'")
+
+          if (role === 'Student') {
+            const numericValue = email.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
+            const std_id = numericValue[0]; // ได้ค่าเป็น "6610110661"
+            console.log('this is student user',std_id); 
+            localStorage.setItem('stdID', std_id);//1.setstdID
+            localStorage.setItem('role',role)//5. setrole
+            localStorage.setItem('username',username)
+          } else {
+            console.log("You are teacher");
+            localStorage.setItem('role',role)
+            localStorage.setItem('username',username)
+          }
+          
           props.onLoginSuccess(); // ใช้งานฟังชันพรอพ onlogin success
         } catch (err) {
           console.log(err);
@@ -46,8 +50,9 @@ function LoginScreen(props){
       };
 
     return (
-      <div className="login-box">
+      <div className="login-box" >
         
+        <h2 className="titleLG">Welcome To ScoreBoard</h2>
         <Form onFinish={handleLogin} autoComplete="off">
           {errMsg && (
             <Form.Item>
@@ -69,6 +74,8 @@ function LoginScreen(props){
           </Form.Item>
            
         </Form>
+        
+        
       </div>
       );
 }

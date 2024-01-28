@@ -74,13 +74,12 @@ const AndetailforStd = () => {
     };
     
     
-    useEffect(() => {//จับเวลา3วิ
+    useEffect(() => {
       fetchAnnounceDetail()
-      
     }, []);
 
     useEffect(()=>{
-      // Set a timer to mark as "readed" after 3 seconds
+      //จับเวลา3วิ
       const timer = setTimeout(async () => {      
         const date = new Date();
         handleViewed(date)
@@ -105,7 +104,7 @@ const AndetailforStd = () => {
       localStorage.removeItem('isAuthenticated');
       localStorage.removeItem('role');
       localStorage.removeItem('IDuser');
-      localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
+      localStorage.removeItem('stdID');  
       delete axios.defaults.headers.common['Authorization'];
       window.location.href = '/';
     };
@@ -123,14 +122,17 @@ const AndetailforStd = () => {
       <div>
         <Spin spinning={isLoading}> 
         <Navstd  onLogout={handleLogout}/>
-          <h2>{announceDetail.ANname}</h2>
-          <h3>Announce Detail</h3>
+        <div className="container-detail">
+          <div className="ANname"><h2>{announceDetail.ANname}</h2></div>
+          <h3>คะแนนที่คุณทำได้</h3>
           <div><Tablescores  data={datascore} /></div> 
           <div className="container-btn">
             {/* <button onClick={handleaccept} className="btn-accept">Accept</button> */}
             {!isAccepted && <button onClick={handleaccept} className="btn-accept">Accept</button>}
             {isAccepted && <button className="btn-accepted">Accepted!!</button>}
           </div>
+        </div>
+          
         </Spin>
       </div>
     );

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import Announcepage from "./Announcepage";
 import Navtc from "./components/Navtc";
-import './decoration/Navtc.css'
+import './components/Navtc.css'
 import FormnewAn from "./components/FormnewAn";
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Flex, Tooltip } from 'antd';
@@ -89,7 +89,7 @@ function Hometc() {
   return (
     <div> 
       <Navtc onLogout={handleLogout}/>
-      <div className="group searcher">
+      <div className="searcher">
         <form>
           <input type="text" onChange={searching} placeholder="ค้นหาประกาศ" className="search" value={searchAn}/>
         </form>

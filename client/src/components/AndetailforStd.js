@@ -26,7 +26,7 @@ const AndetailforStd = () => {
       try {
         setIsLoading(true);
         console.log('id',id)
-        const stdID = localStorage.getItem('stdID')
+        const stdID = sessionStorage.getItem('stdID')
         const response = await axios.get(`/api/announces/${id}?populate=*`);
         console.log('this is announce id that clicked', response.data.data);
         const response_announce = { //เซ็ตข้อมูลต่างๆของannounce ที่กดเข้ามา
@@ -101,10 +101,10 @@ const AndetailforStd = () => {
 
     const handleLogout = () => {
       // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('role');
-      localStorage.removeItem('IDuser');
-      localStorage.removeItem('stdID');  
+      sessionStorage.removeItem('isAuthenticated');
+      sessionStorage.removeItem('role');
+      sessionStorage.removeItem('IDuser');
+      sessionStorage.removeItem('stdID');  
       delete axios.defaults.headers.common['Authorization'];
       window.location.href = '/';
     };

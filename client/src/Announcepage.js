@@ -5,6 +5,7 @@ import axios from "axios";
 import { Spin, Button, Modal, Form, Input } from "antd";
 import Announcedetail from "./components/Announcedetail";
 import ModaleditName from "./components/ModaleditName";
+import ModaleDelete from "./components/ModaleDelete";
 import { Link } from "react-router-dom";
 
 axios.defaults.baseURL =
@@ -20,7 +21,7 @@ function Announcepage(props) {
   const fetchItems = async () => {
     try {
       setIsLoading(true);
-      const userID = localStorage.getItem('IDuser')
+      const userID = sessionStorage.getItem('IDuser')
       const respon = await axios.get(`${URL_USER}/${userID}?populate=announces`)
       console.log('respon', respon.data.announces )
       const respon_map = respon.data.announces.map((e)=>{
@@ -64,7 +65,7 @@ function Announcepage(props) {
   };
 
   useEffect(() => {   
-    const token = localStorage.getItem('jwt')
+    const token = sessionStorage.getItem('jwt')
     axios.defaults.headers.common = { Authorization: `bearer ${token}` };//รีเฟรชแล้วไม่หาย
     fetchItems();
   }, []);
@@ -84,6 +85,10 @@ function Announcepage(props) {
   const handlenewName = (newName) =>{
     props.onNewname(newName)
   }
+  const handleDelete = (id) =>{
+    console.log('anpagesent',id,'tohometc')
+    props.onDelete(id)
+  }
 
   return (
     <div className="container">
@@ -101,7 +106,8 @@ function Announcepage(props) {
             <p>นี่คือการประกาศคะแนนแห่งความสนุก</p>
             <div className="edit-box">
               <Link to={`/announce/${announce.id}`}>More detail</Link>
-              <button onClick={() => props.onDelete(announce.id)}>Delete</button>
+              <ModaleDelete name={announce.name} idclicked={announce.id} onDelete={handleDelete}/>
+              {/* <button className="delete-btn" onClick={() => props.onDelete(announce.id)}>Delete</button> */}
             </div>
             {/* แสดงข้อมูลอื่น ๆ ของกิจกรรมตามต้องการ */}
           </div>

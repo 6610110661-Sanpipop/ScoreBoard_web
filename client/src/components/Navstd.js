@@ -5,7 +5,7 @@ import { Button, Flex, Tooltip } from 'antd';
 
 const Navstd = (props) => {
   // const [searchAn,setserchAn] = useState('')
-  const role = localStorage.getItem('role')
+  const role = sessionStorage.getItem('role')
   
 //   const searching = (event) =>{
 //     setserchAn(event.target.value)

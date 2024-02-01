@@ -32,6 +32,17 @@ body{
     color: rgb(255, 255, 255);
     background-color: rgb(12, 73, 170);
 }
+.delete-btn{
+    background-color: rgb(201, 12, 12);
+    color: white;
+    border: 2px solid rgb(114, 0, 0);
+    padding: 4px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.delete-btn:hover{
+    background-color: rgb(114, 29, 29);
+}
 .btn-upload{
     margin-top: 15px;
 }

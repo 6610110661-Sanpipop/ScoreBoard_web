@@ -15,13 +15,13 @@ function LoginScreen(props){
           setErrMsg(null);
           const response = await axios.post(URL_AUTH, {...formData});   
           console.log('afterlogin',response )  
-          localStorage.setItem('IDuser',response.data.user.id)//4.setidของuserที่ลอกอินเข้ามา
+          sessionStorage.setItem('IDuser',response.data.user.id)//4.setidของuserที่ลอกอินเข้ามา
           const email = response.data.user.email
           const username = response.data.user.username
 
           const token = response.data.jwt
           axios.defaults.headers.common = { Authorization: `bearer ${token}` };//ฟีเจอของaxios เซตเฮดเดอให้มันได้เลย แล้วต่อไปในแอพของเราทั้งหมดแอพจะให้เฮดเดอนี้เสมอ (ฟังชันบันทึกโทเคน) 2.setaxiosheader
-          localStorage.setItem('jwt',token)
+          sessionStorage.setItem('jwt',token)
 
           const getrole = await axios.get("/api/users/me?populate=role")
           const role = getrole.data.role.name
@@ -31,13 +31,13 @@ function LoginScreen(props){
             const numericValue = email.match(/\d+/); // ใช้ Regex เพื่อดึงค่าตัวเลข
             const std_id = numericValue[0]; // ได้ค่าเป็น "6610110661"
             console.log('this is student user',std_id); 
-            localStorage.setItem('stdID', std_id);//1.setstdID
-            localStorage.setItem('role',role)//5. setrole
-            localStorage.setItem('username',username)
+            sessionStorage.setItem('stdID', std_id);//1.setstdID
+            sessionStorage.setItem('role',role)//5. setrole
+            sessionStorage.setItem('username',username)
           } else {
             console.log("You are teacher");
-            localStorage.setItem('role',role)
-            localStorage.setItem('username',username)
+            sessionStorage.setItem('role',role)
+            sessionStorage.setItem('username',username)
           }
           
           props.onLoginSuccess(); // ใช้งานฟังชันพรอพ onlogin success

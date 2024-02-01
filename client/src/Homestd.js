@@ -17,16 +17,16 @@ const URL_SCORE = "/api/scores";
 function Homestd(props) {
   const [forceRefresh, setForceRefresh] = useState(false);
   const [searchtxt, setSearchtxt] = useState("");
-  const stdID = localStorage.getItem("stdID");
+  const stdID = sessionStorage.getItem("stdID");
 
   const handleLogout = () => {
     // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("role");
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("IDuser");
-    localStorage.removeItem("username");
-    localStorage.removeItem("stdID"); // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
+    sessionStorage.removeItem("isAuthenticated");
+    sessionStorage.removeItem("role");
+    sessionStorage.removeItem("jwt");
+    sessionStorage.removeItem("IDuser");
+    sessionStorage.removeItem("username");
+    sessionStorage.removeItem("stdID"); // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
     delete axios.defaults.headers.common["Authorization"];
     // ทำการ redirect ไปยังหน้าที่ต้องการ
     window.location.href = "/";

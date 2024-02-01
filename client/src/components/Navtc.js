@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Navtc = (props) => {
   // const [searchAn,setserchAn] = useState('')
-  const role = localStorage.getItem('role')
+  const role = sessionStorage.getItem('role')
 
 //   const searching = (event) =>{
 //     setserchAn(event.target.value)

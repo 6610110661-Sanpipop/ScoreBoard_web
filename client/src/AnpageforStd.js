@@ -16,7 +16,7 @@ function AnpageforStd(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [announce, setannounce] = useState([]);
   const [filter,setfilter] = useState('All')
-  const stdID = localStorage.getItem("stdID");
+  const stdID = sessionStorage.getItem("stdID");
 
   const fetchItems = async () => {
     try {

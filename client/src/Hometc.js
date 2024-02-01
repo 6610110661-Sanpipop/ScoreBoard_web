@@ -21,18 +21,19 @@ function Hometc() {
 
   const handleLogout = () => {
     // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
-    localStorage.removeItem('isAuthenticated');
-    localStorage.removeItem('role');
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('IDuser');
-    localStorage.removeItem('username');
-    localStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
+    sessionStorage.removeItem('isAuthenticated');
+    sessionStorage.removeItem('role');
+    sessionStorage.removeItem('jwt');
+    sessionStorage.removeItem('IDuser');
+    sessionStorage.removeItem('username');
+    sessionStorage.removeItem('stdID');  // ถ้ามีค่าที่เกี่ยวข้องกับการล็อกอิน
     delete axios.defaults.headers.common['Authorization'];
     // ทำการ redirect ไปยังหน้าที่ต้องการ
     window.location.href = '/';
   };
 
   const handleDelete = async (id) =>{
+    console.log('hometcdelete',id)
     try {
      // 1. ดึงข้อมูลประกาศที่ต้องการลบ
     const announceResponse = await axios.get(`${URL_ANNOUNCE}/${id}?populate=scores`);
@@ -58,7 +59,7 @@ function Hometc() {
     console.log('Home get newAn',newAn)
     axios.post(URL_ANNOUNCE,{data:{
       Name : newAn,
-      who_create: localStorage.getItem('IDuser')
+      who_create: sessionStorage.getItem('IDuser')
     }});
     setForceRefresh(prev => !prev);
   }
@@ -100,7 +101,7 @@ function Hometc() {
           </Flex>
         </Flex>
       </div>
-      <h1>Home for Admin "{localStorage.getItem('username')}"</h1>
+      <h1>Home for Admin "{sessionStorage.getItem('username')}"</h1>
       <FormnewAn onAddnewAn={handlenewAn}/>
       <Announcepage txtsearch={searchtxt} key={forceRefresh} onNewname={handlechangename} onDelete={handleDelete} /> 
     </div>

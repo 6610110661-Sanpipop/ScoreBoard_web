@@ -4,8 +4,6 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Teacherpage from "./Teacherpage";
-import Eachstd from "./Eachstd";
 import Hometc from "./Hometc";
 import Announcedetail from "./components/Announcedetail";
 import Readexcel from "./components/Readexcel";
@@ -18,10 +16,6 @@ const router = createBrowserRouter([
     element:<App/>
   },
   {
-    path: "home",
-    element: <Eachstd/>
-  },
-  {
     path: "homestd",
     element: <Homestd/>
   },
@@ -29,10 +23,6 @@ const router = createBrowserRouter([
   {
     path:"admin",
     element:<Hometc/>
-  },
-  {
-    path:"test",
-    element:<Readexcel/>
   },
   {
     path: `announce/:id`, // ใช้ :id เป็น dynamic segment

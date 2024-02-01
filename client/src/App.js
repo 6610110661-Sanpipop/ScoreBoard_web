@@ -1,9 +1,8 @@
 import './App.css';
 import axios from "axios";
 import { useEffect, useState } from "react";
-import Teacherpage from './Teacherpage'; // component
+// component
 import LoginScreen from './LoginScreen';
-import Eachstd from './Eachstd';
 import Hometc from './Hometc';
 import Homestd from './Homestd';
 import { useLoaderData } from 'react-router-dom';
@@ -12,11 +11,11 @@ axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || "http://localhost:133
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const role = localStorage.getItem('role')    //เซ็ตตัวrole ตอนโหลด
+  const role = sessionStorage.getItem('role')    //เซ็ตตัวrole ตอนโหลด
 
 
   useEffect(()=>{
-    const storedAuth = localStorage.getItem('isAuthenticated');
+    const storedAuth = sessionStorage.getItem('isAuthenticated');
     if (storedAuth==='true'){
       setIsAuthenticated(true);//เซ็ตตัวisauthen ตอนโหลด
     }
@@ -25,7 +24,7 @@ function App() {
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true)
-    localStorage.setItem('isAuthenticated','true') //3.setisAuthenticated
+    sessionStorage.setItem('isAuthenticated','true') //3.setisAuthenticated
     console.log('loginsuccess');
   };
 
@@ -38,7 +37,7 @@ function App() {
           {isAuthenticated && 
             <Eachstd />}    */}
 
-          {localStorage.getItem('isAuthenticated') == 'true' && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
+          {sessionStorage.getItem('isAuthenticated') == 'true' && role ? (role === 'Student' ? <Homestd /> : <Hometc />) : 
           (<LoginScreen onLoginSuccess={handleLoginSuccess} />)}
         </header>
       </div>

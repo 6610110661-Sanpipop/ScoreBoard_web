@@ -62,10 +62,10 @@ const AnnounceDetail = () => {
   
     const handleLogout = () => {
       // ล้างค่าทั้งหมดที่เกี่ยวข้องกับการล็อกอิน
-      localStorage.removeItem('isAuthenticated');
-      localStorage.removeItem('role');
-      localStorage.removeItem('IDuser');
-      localStorage.removeItem('stdID');  
+      sessionStorage.removeItem('isAuthenticated');
+      sessionStorage.removeItem('role');
+      sessionStorage.removeItem('IDuser');
+      sessionStorage.removeItem('stdID');  
       delete axios.defaults.headers.common['Authorization'];
       // ทำการ redirect ไปยังหน้าแรก
       window.location.href = '/';

@@ -14,8 +14,10 @@ function Readexcel(props) {
       const sheet = workbook.Sheets[sheetName]
       const parsedData = XLSX.utils.sheet_to_json(sheet)
       setData(parsedData)
-      props.onAddscore(parsedData)
-      console.log('check',parsedData);  // เพิ่มบรรทัดนี้เพื่อดูข้อมูลที่ถูก console.log
+      const arr = parsedData.map((item) => Object.values(item))
+      console.log('arr',arr)
+      props.onAddscore(arr)
+      // console.log('check',parsedData);  // เพิ่มบรรทัดนี้เพื่อดูข้อมูลที่ถูก console.log
     }
   }
 

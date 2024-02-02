@@ -76,17 +76,17 @@ const AnnounceDetail = () => {
       const itemTOpost = item.map((e)=>{
         return {
           key: uuidv4(),
-          studentID:e.studentID.toString(),
-          score:e.score,
-          Status:e.Status,
+          studentID:e[1].toString(),
+          score:e[2],
+          Status:e[3],
           announce: announceDetail.id
         }})
       const itemTOpreview = item.map((e)=>{
         return {
           key: uuidv4(),
-          studentID:e.studentID.toString(),
-          score:e.score,
-          Status:e.Status,
+          studentID:e[1].toString(),
+          score:e[2],
+          Status:e[3],
           announce: announceDetail.Name
         }})
       console.log('itemtopost',itemTOpost)
@@ -99,7 +99,7 @@ const AnnounceDetail = () => {
       console.log('prepare post', dataForpost);
       try {
         const postRequests = dataForpost.map(async (item) => {
-          console.log('wtf', item);
+          console.log('this will post', item);
           const response = await axios.post(URL_SCORES, { data: {
             studentID: item.studentID,
             score: item.score,
